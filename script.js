@@ -47,7 +47,9 @@ if (result === 'You Win') {
 
 document.querySelector('.resultOP').innerHTML=`${result}`;
 document.querySelector('.moves').innerHTML =`You Chose<img src="../RockPaperScissors/assets/${myMove}-emoji.png" alt="">. 
-  And Computer Chose    <img src="../RockPaperScissors/assets/${compMove}-emoji.png"alt="">`
+  And Computer Chose    <img src="../RockPaperScissors/assets/${compMove}-emoji.png"alt="">`;
+
+  scoreDisplay();
 }
 
 function pickCompMove() {
@@ -75,15 +77,87 @@ function resetScore() {
 
 let intID;
 function autoPlay(){
-      intID=setInterval(function(){
-      const myMove = pickCompMove();
-      playGame(myMove);
-      scoreDisplay();
+    intID=setInterval(()=>{
+    const myMove = pickCompMove();
+    playGame(myMove);
+    scoreDisplay();
     }, 1000);
   } 
     
 function pause(){
   clearInterval(intID);
+  }
+
+  document.querySelector('.rockBtn')
+    .addEventListener('click', () => {
+      playGame('Rock');
+    });
+
     
+  document.querySelector('.paperBtn')
+  .addEventListener('click', () => {
+    playGame('Paper');
+  });
+
   
-}
+  document.querySelector('.scissorsBtn')
+    .addEventListener('click', () => {
+      playGame('Scissors');
+    });
+
+    document.querySelector('.autoplay')
+    .addEventListener('click', () => {
+      autoPlay();
+    });
+
+    document.querySelector('.pause')
+    .addEventListener('click', () => {
+      pause();
+    });
+
+ document.body.addEventListener('keydown', ()=>{
+    if(event.key === 'r') {
+       playGame('Rock');
+    } else if (event.key === 'p') {
+      playGame('Paper');
+    } else if (event.key === 's') {
+    playGame('Scissors');
+    } else  if(event.key === 'a') {
+    autoPlay();
+    } else if (event.code === 'Space'){
+       pause();
+    } else if(event.code === 'Backspace'){
+      resetScore();
+    }
+  });
+
+
+  document.querySelector('.resetButton')
+  .addEventListener('click', () => {
+    document.querySelector('.confirmMsg')
+    .innerHTML = `
+      <p class = "message">Are you sure, you want to reset the score? <button class="yesBtn">Yes</button> <button class="noBtn">No</button></p>`
+      
+      document.querySelector('.yesBtn')
+      .addEventListener('click', () => {
+        resetScore();
+        document.querySelector('.message')
+        .innerHTML='';
+      });
+
+        document.querySelector('.noBtn')
+        .addEventListener('click' , () => {
+          document.querySelector('.message')
+        .innerHTML='';
+        })
+    })
+
+     
+
+
+ 
+
+ 
+
+ 
+ 
